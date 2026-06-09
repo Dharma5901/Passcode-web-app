@@ -1,87 +1,126 @@
-# Face Recognition Attendance App
+# FACE RECOGNITION ATTENDANCE APP 
 
-A Flask-based Face Recognition Attendance System that verifies employees using a passcode and captures multiple face poses (frontal, left, and right) for attendance registration.
+A production-ready attendance management system built using Flask, OpenCV, and MediaPipe Face Landmarker. The application authenticates employees through a secure passcode-based workflow, captures facial images from multiple angles, and automatically records attendance through REST API integration.
 
-## Features
+## Overview
 
-* Employee authentication using Passcode API
+This project streamlines employee attendance registration by combining identity verification and computer vision technologies. The system performs real-time face pose analysis, captures high-quality facial images from multiple viewpoints, and integrates seamlessly with enterprise attendance management platforms.
+
+## Key Features
+
+### Employee Authentication
+
+* Secure passcode-based employee verification
+* REST API integration for credential validation
+* Dynamic employee information retrieval
+
+### Intelligent Face Capture
+
 * Real-time face detection using MediaPipe Face Landmarker
-* Automatic face pose estimation (Frontal, Left, Right)
-* Multi-angle face image capture
-* Attendance API integration
-* Secure environment variable configuration
-* Web-based user interface using Flask
-* Automatic attendance submission after successful face capture
+* Head pose estimation and orientation tracking
+* Guided multi-angle face acquisition:
+
+  * Frontal View
+  * Left Profile View
+  * Right Profile View
+* Automated image quality and pose validation
+
+### Attendance Automation
+
+* Automatic attendance submission upon successful face capture
+* Employee attendance record synchronization via API
+* Configurable check-in/check-out workflows
+
+### System Configuration
+
+* Environment variable-based configuration management
+* Secure API key handling
+* Flexible deployment across different environments
+
+---
+
+## Architecture
+
+```text
+User Authentication
+        │
+        ▼
+Passcode Validation API
+        │
+        ▼
+Employee Verification
+        │
+        ▼
+Camera Initialization
+        │
+        ▼
+Face Detection & Pose Analysis
+        │
+        ▼
+Multi-Angle Face Capture
+        │
+        ▼
+Attendance API Submission
+        │
+        ▼
+Attendance Successfully Marked
+```
 
 ---
 
 ## Technology Stack
 
-### Backend
+### Backend Framework
 
 * Python
 * Flask
 
-### Computer Vision
+### Computer Vision & AI
 
 * OpenCV
 * MediaPipe Face Landmarker
 * NumPy
 
-### APIs & Networking
+### API Integration
 
 * Requests
-* REST API Integration
+* RESTful APIs
 
-### Configuration
+### Environment Management
 
 * Python Dotenv
-
----
-
-## Project Workflow
-
-1. Employee enters a passcode.
-2. System validates the passcode through the Login API.
-3. Employee details are fetched from the server.
-4. Camera opens and starts face capture.
-5. User is guided through:
-
-   * Frontal Face
-   * Left Face
-   * Right Face
-6. Captured face images are stored locally.
-7. Final image is uploaded through the Attendance API.
-8. Attendance is marked successfully.
 
 ---
 
 ## Project Structure
 
 ```text
-project/
+Face_Recognition_Attendance_App/
 │
 ├── app.py
+├── requirements.txt
+├── README.md
 ├── .env
+│
 ├── models/
 │   └── face_landmarker.task
-│
-├── gallery/
-│   └── employee_images/
 │
 ├── templates/
 │   ├── login.html
 │   ├── capture.html
 │   └── success.html
 │
-└── requirements.txt
+├── gallery/
+│   └── employee_images/
+│
+└── static/
 ```
 
 ---
 
 ## Environment Variables
 
-Create a `.env` file:
+Create a `.env` file in the project root directory.
 
 ```env
 LOGIN_API_URL=
@@ -90,30 +129,38 @@ ENCKEY=
 
 CHECKTYPE=I
 
-LATITUDE=11.0346474
-LONGITUDE=77.0188038
+LATITUDE=
+LONGITUDE=
 ```
+
+| Variable           | Description                 |
+| ------------------ | --------------------------- |
+| LOGIN_API_URL      | Employee authentication API |
+| ATTENDANCE_API_URL | Attendance submission API   |
+| ENCKEY             | API authentication key      |
+| CHECKTYPE          | Attendance type (IN / OUT)  |
+| LATITUDE           | Device latitude             |
+| LONGITUDE          | Device longitude            |
 
 ---
 
 ## Installation
 
-Clone the repository:
+### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/Face_Recognition_Attendance_App.git
-
+git clone git@github.com:Dharma5901/Face_Recognition_Attendance_App.git
 cd Face_Recognition_Attendance_App
 ```
 
-Create a virtual environment:
+### Create Virtual Environment
 
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-Install dependencies:
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -121,13 +168,13 @@ pip install -r requirements.txt
 
 ---
 
-## Run Application
+## Running the Application
 
 ```bash
 python app.py
 ```
 
-Application will start at:
+The application will be available at:
 
 ```text
 http://localhost:5000
@@ -135,47 +182,77 @@ http://localhost:5000
 
 ---
 
-## Key Functionalities
+## Workflow
 
-### Passcode Verification
-
-Validates employee credentials using a remote authentication API.
-
-### Face Pose Detection
-
-Uses MediaPipe Face Landmarker and head pose estimation to detect:
-
-* Frontal Face
-* Left Face
-* Right Face
-
-### Attendance Upload
-
-Uploads employee attendance data along with the captured face image to the attendance server.
+1. Employee enters a valid passcode.
+2. Passcode is verified through the authentication service.
+3. Employee information is retrieved.
+4. Camera interface is launched.
+5. Face pose is analyzed in real time.
+6. Images are captured from multiple orientations.
+7. Captured images are stored locally.
+8. Attendance is automatically submitted through the attendance API.
+9. Success confirmation is displayed to the user.
 
 ---
 
-## Future Improvements
+## Core Functionalities
 
-* Face Recognition Matching
+### Passcode-Based Authentication
+
+Validates employee credentials through an external authentication service before attendance processing begins.
+
+### Face Pose Estimation
+
+Uses MediaPipe Face Landmarker and OpenCV-based head pose estimation to determine user orientation and ensure accurate multi-angle image collection.
+
+### Automated Attendance Registration
+
+After successful face capture, the application automatically submits attendance records to the configured backend system.
+
+---
+
+## Future Enhancements
+
+* Face Recognition Verification
 * Face Liveness Detection
-* Attendance Dashboard
-* Employee Management Portal
-* Attendance Reports
-* Docker Deployment
+* Employee Attendance Dashboard
+* Attendance Analytics & Reporting
 * Multi-Camera Support
+* Docker Deployment
+* Kubernetes Deployment
+* Cloud Storage Integration
+* Audit Logs & Monitoring
+
+---
+
+## Use Cases
+
+* Corporate Offices
+* Manufacturing Facilities
+* Educational Institutions
+* Residential Communities
+* Smart Building Access Management
 
 ---
 
 ## Author
 
-Dharmaraj B
+**DHARMARAJ B**
 
 AI/ML Engineer | Computer Vision Developer
 
-Specialized in:
+### Expertise
 
-* Face Recognition
+* Computer Vision
+* Face Recognition Systems
 * Object Detection
 * Real-Time Video Analytics
-* AI-Based Automation Systems
+* Edge AI Deployment
+* Deep Learning Applications
+
+---
+
+## License
+
+This project is intended for educational, research, and enterprise automation purposes.
