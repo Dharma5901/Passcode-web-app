@@ -22,7 +22,8 @@ LONGITUDE = os.getenv("LONGITUDE", "77.0188038").strip()
 
 app = Flask(__name__)
 
-FACE_DIR = "/home/va-nuc/Desktop/face_attendance/new_working_code/gallery"
+FACE_DIR = os.getenv("FACE_DIR", "").strip
+FACE_DIR = "/home/va-nuc/Desktop/face_attendance/version_3/gallery"
 MODEL_PATH = "models/face_landmarker.task"
 
 os.makedirs(FACE_DIR, exist_ok=True)
@@ -139,7 +140,8 @@ def verify():
                 "message": "Invalid passcode"
             })
 
-        employee_details = login_result.get("Data", {}).get("EmployeeDetails", {})
+        employee_details = login_result.get(
+            "Data", {}).get("EmployeeDetails", {})
 
         employee_id = employee_details.get("id")
 
@@ -338,7 +340,7 @@ def process_frame():
         )
 
         if os.path.exists(final_image):
-            #upload_attendance(employee_id, final_image)
+            # upload_attendance(employee_id, final_image)
             capture_state["attendance_uploaded"] = True
 
             return jsonify({"done": True})
