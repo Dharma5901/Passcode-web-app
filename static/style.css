@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #036d6d;
+
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 15px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    font-weight: bold;
+    width: 100%;
+    max-width: 800px;
+    padding: 25px;
+    border-radius: 20px;
+    box-sizing: border-box;
+
+    text-align: center;
+    color: white;
+
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.capture_card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    font-weight: bold;
+    width: 100%;
+    max-width: 520px;
+    padding: 18px;
+    border-radius: 18px;
+    box-sizing: border-box;
+
+    text-align: center;
+    color: white;
+
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+h2 {
+    font-size: 30px;
+    color: white;
+}
+
+p {
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+}
+
+.subtitle {
+    opacity: 0.9;
+    margin-top: 10px;
+}
+
+.input-group {
+    margin-top: 30px;
+}
+
+input {
+    padding: 14px;
+    border-radius: 10px;
+    border: 2px solid black;
+    width: 280px;
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 22px;
+    box-sizing: border-box;
+}
+
+.camera-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 100%;
+}
+
+button {
+    padding: 16px 40px;
+    border-radius: 20px;
+    border: none;
+    background: #00c6ff;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.03);
+    background: white;
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.5);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+video {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    max-height: 62vh;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 14px;
+    margin: 0 auto 15px auto;
+    display: block;
+    background: black;
+}
+
+.video-active {
+    box-shadow: 0 0 25px #00ffcc, 0 0 60px rgba(0, 255, 204, 0.4);
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.progress {
+    width: 85%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #000766;
+    box-shadow: 0 0 10px #001988;
+    transition: width 0.3s ease;
+}
+
+#startBtn,
+#finishBtn,
+#openCameraBtn {
+    padding: 14px 32px;
+    font-size: 20px;
+    border-radius: 12px;
+}
+
+#finishBtn {
+    display: none;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.countdown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 70px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    display: none;
+    animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+    from {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    color: black;
+}
+
+.modal-content h2 {
+    color: #0d47a1;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        padding: 8px;
+        align-items: flex-start;
+    }
+
+    .card {
+        margin-top: 10px;
+        padding: 15px;
+        border-radius: 14px;
+    }
+
+    .capture_card video {
+        width: 100%;
+        max-width: 300px;
+        max-height: 45vh;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+    video {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        max-height: 75vh;
+        border-radius: 12px;
+    }
+
+    button,
+    #startBtn,
+    #finishBtn,
+    #openCameraBtn {
+        width: 100%;
+        font-size: 16px;
+        padding: 14px;
+    }
+
+    input {
+        width: 100%;
+        font-size: 18px;
+        padding: 14px;
+    }
+
+    .countdown {
+        font-size: 48px;
+    }
+
+    .capture_card {
+        max-width: 100%;
+        padding: 12px;
+    }
+
+    .capture_card video {
+        width: 100%;
+        max-width: 320px;
+        max-height: 50vh;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+
+    .capture_card .progress {
+        width: 100%;
+    }
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="stylesheet" href="/static/style.css">
+
+    <style>
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            top: -20px;
+            border-radius: 50%;
+            animation: fall linear forwards;
+            z-index: 9999;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h1><b>SUCCESS!</b></h1>
+        <p>FACE REGISTERED SUCCESSFULLY</p>
+        <button onclick="goToLogin()">BACK TO LOGIN</button>
+    </div>
+
+    <script>
+        window.addEventListener("load", function () {
+            if (performance.getEntriesByType("navigation")[0]?.type === "reload") {
+                window.location.href = "/";
+            }
+
+            createConfetti();
+        });
+
+        function goToLogin() {
+            window.location.href = "/";
+        }
+
+        function createConfetti() {
+            const colors = [
+                "#ff0000",
+                "#00ff00",
+                "#0000ff",
+                "#ffff00",
+                "#ff00ff",
+                "#00ffff",
+                "#ff9800"
+            ];
+
+            for (let i = 0; i < 120; i++) {
+                const confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.backgroundColor =
+                    colors[Math.floor(Math.random() * colors.length)];
+
+                confetti.style.animationDuration =
+                    (Math.random() * 3 + 2) + "s";
+
+                confetti.style.width =
+                    (Math.random() * 10 + 8) + "px";
+
+                confetti.style.height = confetti.style.width;
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+    </script>
+
+</body>
+</html>

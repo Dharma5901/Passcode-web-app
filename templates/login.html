@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="card">
+
+        <h1>FACE RECOGNITION ATTENDANCE APP</h1>
+        <p><b>ENTER YOUR PASSCODE</b></p>
+
+        <div class="input-group">
+            <input type="tel" id="passcode" placeholder="Enter Passcode" autocomplete="off" inputmode="numeric"
+                pattern="[0-9]*" maxlength="4">
+        </div>
+
+        <button id="loginBtn" onclick="login()">LOGIN</button>
+
+        <div class="camera-container">
+            <button id="openCameraBtn" onclick="openCamera()" style="display:none;">
+                OPEN CAMERA
+            </button>
+        </div>
+
+        <p id="msg"></p>
+
+    </div>
+
+    <script>
+        let verifiedPasscode = "";
+        let verifiedEmpId = "";
+
+        function login() {
+            const passcode = document.getElementById("passcode").value.trim();
+            const msg = document.getElementById("msg");
+
+            if (!passcode) {
+                msg.innerText = "⚠️ ENTER PASSCODE";
+                return;
+            }
+
+            msg.innerText = "VERIFYING...";
+
+            fetch("/verify", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "passcode=" + encodeURIComponent(passcode)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        verifiedPasscode = passcode;
+                        verifiedEmpId = data.emp_id;
+
+                        alert(
+                            "EMPLOYEE VERIFIED\n\n" +
+                            "NAME: " + data.name + "\n" +
+                            "DESIGNATION: " + data.designation
+                        );
+
+                        document.getElementById("openCameraBtn").style.display = "block";
+                        msg.innerText = "✅ VERIFIED";
+
+                    } else if (data.status === "fail") {
+                        msg.innerText = "❌ INVALID PASSCODE";
+
+                    } else {
+                        msg.innerText = "❌ SERVER ERROR";
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    msg.innerText = "❌ CONNECTION ERROR";
+                });
+        }
+
+        function openCamera() {
+            if (!verifiedPasscode || !verifiedEmpId) {
+                alert("Please login first");
+                return;
+            }
+
+            window.location.href =
+                "/capture/" + verifiedPasscode + "/" + verifiedEmpId;
+        }
+
+        document.getElementById("passcode").addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                login();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
